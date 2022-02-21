@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/blocs.dart' as blocs;
 import 'screens/screens.dart' as screens;
 import 'utils/utils.dart' as utils;
 
@@ -7,10 +9,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: _routes,
+    return MultiBlocProvider(
+      providers: _providers,
+      child: BlocBuilder<blocs.ThemeBloc, blocs.ThemeState>(
+        builder: (themeContext, themeState) {
+          return MaterialApp(
+            onGenerateRoute: _routes,
+            theme: themeState.theme.themeData,
+          );
+        },
+      ),
     );
   }
+
+  List<BlocProvider> get _providers => [];
 
   Route _routes(RouteSettings settings) => MaterialPageRoute(
         builder: (context) {
