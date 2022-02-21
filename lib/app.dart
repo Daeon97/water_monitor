@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/blocs.dart' as blocs;
+import 'repositories/repositories.dart' as repositories;
 import 'screens/screens.dart' as screens;
 import 'utils/utils.dart' as utils;
 
@@ -22,7 +23,16 @@ class App extends StatelessWidget {
     );
   }
 
-  List<BlocProvider> get _providers => [];
+  List<BlocProvider> get _providers => [
+        BlocProvider<blocs.ThemeBloc>(
+          create: (context) => blocs.ThemeBloc(),
+        ),
+        BlocProvider<blocs.WaterLevelBloc>(
+          create: (context) => blocs.WaterLevelBloc(
+            waterLevelRepository: repositories.WaterLevelRepository(),
+          ),
+        ),
+      ];
 
   Route _routes(RouteSettings settings) => MaterialPageRoute(
         builder: (context) {
@@ -30,7 +40,7 @@ class App extends StatelessWidget {
             case utils.homeScreenRoute:
               return const screens.HomeScreen();
             default:
-              return Container();
+              return const screens.HomeScreen();
           }
         },
       );

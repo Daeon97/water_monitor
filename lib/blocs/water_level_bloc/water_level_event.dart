@@ -6,3 +6,10 @@ abstract class WaterLevelEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetWaterLevelEvent extends WaterLevelEvent {
+  const GetWaterLevelEvent();
+
+  @override
+  List<Object> get props => [];
+}
