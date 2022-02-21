@@ -28,12 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
       child: BlocBuilder<blocs.WaterLevelBloc, blocs.WaterLevelState>(
         builder: (waterLevelContext, waterLevelState) => Scaffold(
           appBar: AppBar(
+            title: const FlutterLogo(),
             actions: [
               IconButton(
                 icon: const Icon(
                   Icons.settings,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    utils.settingsScreenRoute,
+                  );
+                },
               ),
             ],
           ),
@@ -42,20 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  const Text(
-                    '123',
-                    style: TextStyle(
+                  Text(
+                    waterLevelState is blocs.GotWaterLevelState ? (waterLevelState.waterLevel.level).toString() : utils.threeDots,
+                    style: const TextStyle(
                       fontSize: utils.extraLargePadding,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: utils.extraLargePadding +
                         utils.extraLargePadding +
                         utils.veryLargePadding,
                     height: utils.extraLargePadding +
                         utils.extraLargePadding +
                         utils.veryLargePadding,
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      value: waterLevelState is blocs.GotWaterLevelState ? (waterLevelState.waterLevel.level.toDouble() / utils.hundred.toDouble()) : null,
+                    ),
                   ),
                 ],
               ),

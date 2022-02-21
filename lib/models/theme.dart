@@ -12,9 +12,9 @@ class Theme {
         return Theme(
           themeData: ThemeData(
             appBarTheme: const AppBarTheme(
-              color: utils.baseColor,
+              color: Colors.white,
               actionsIconTheme: IconThemeData(
-                color: Colors.white,
+                color: utils.baseColor,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(

@@ -39,6 +39,8 @@ class App extends StatelessWidget {
           switch (settings.name) {
             case utils.homeScreenRoute:
               return const screens.HomeScreen();
+            case utils.settingsScreenRoute:
+              return const screens.SettingsScreen();
             default:
               return const screens.HomeScreen();
           }
