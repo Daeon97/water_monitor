@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(
                     Icons.warning,
                     color: Colors.red,
+                    size: utils.largePadding + utils.padding,
                   ),
                   SizedBox(
                     height: utils.padding,
@@ -49,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: utils.padding,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
@@ -63,7 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
           return BlocBuilder<blocs.WaterLevelBloc, blocs.WaterLevelState>(
             builder: (waterLevelContext, waterLevelState) => Scaffold(
               appBar: AppBar(
-                title: const FlutterLogo(),
+                title: Text(
+                  utils.liquidLevelMonitoringSystem,
+                  style: TextStyle(
+                    color: themeState.themeValue == utils.Theme.dark
+                        ? Colors.white
+                        : utils.lightModeBaseColor,
+                  ),
+                ),
                 actions: [
                   IconButton(
                     icon: const Icon(
@@ -79,78 +86,92 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               body: Center(
                 child: SingleChildScrollView(
-                  child: Stack(
-                    alignment: Alignment.center,
+                  child: Column(
                     children: [
-                      waterLevelState is blocs.FailedToGetWaterLevelState
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.refresh,
-                                size: utils.largePadding + utils.padding,
-                                color: themeState.themeValue == utils.Theme.dark
-                                    ? Colors.white
-                                    : utils.lightModeBaseColor,
-                              ),
-                              onPressed: () {
-                                BlocProvider.of<blocs.WaterLevelBloc>(context)
-                                    .add(
-                                  const blocs.GetWaterLevelEvent(),
-                                );
-                              },
-                            )
-                          : Text(
-                              waterLevelState is blocs.GotWaterLevelState
-                                  ? (waterLevelState.waterLevel.level)
-                                          .toString() +
-                                      utils.percentage
-                                  : utils.threeDots,
-                              style: TextStyle(
-                                fontSize: utils.extraLargePadding,
-                                color: themeState.themeValue == utils.Theme.dark
-                                    ? Colors.white
-                                    : utils.lightModeBaseColor,
-                              ),
-                            ),
-                      waterLevelState is blocs.GettingWaterLevelState
-                          ? SizedBox(
-                              width: utils.extraLargePadding +
-                                  utils.extraLargePadding +
-                                  utils.veryLargePadding,
-                              height: utils.extraLargePadding +
-                                  utils.extraLargePadding +
-                                  utils.veryLargePadding,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  themeState.themeValue == utils.Theme.dark
-                                      ? Colors.white
-                                      : utils.lightModeBaseColor,
-                                ),
-                              ),
-                            )
-                          : SizedBox(
-                              width: utils.extraLargePadding +
-                                  utils.extraLargePadding +
-                                  utils.veryLargePadding,
-                              height: utils.extraLargePadding +
-                                  utils.extraLargePadding +
-                                  utils.veryLargePadding,
-                              child: CircularProgressIndicator(
-                                value: waterLevelState
-                                        is blocs.GotWaterLevelState
-                                    ? (waterLevelState.waterLevel.level
-                                            .toDouble() /
-                                        utils.hundred.toDouble())
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                waterLevelState is blocs.GotWaterLevelState
+                                    ? (waterLevelState.waterLevel.level)
+                                            .toString() +
+                                        utils.percentage
                                     : waterLevelState
                                             is blocs.FailedToGetWaterLevelState
-                                        ? utils.hundred.toDouble()
-                                        : null,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  themeState.themeValue == utils.Theme.dark
-                                      ? Colors.white
-                                      : utils.lightModeBaseColor,
+                                        ? utils.exclamation
+                                        : utils.threeDots,
+                                style: TextStyle(
+                                  fontSize: utils.extraLargePadding,
+                                  color:
+                                      themeState.themeValue == utils.Theme.dark
+                                          ? Colors.white
+                                          : utils.lightModeBaseColor,
                                 ),
                               ),
+                              waterLevelState is blocs.GotWaterLevelState
+                                  ? Text(
+                                      utils.liquidLevel,
+                                      style: TextStyle(
+                                        fontSize:
+                                            utils.padding + utils.smallPadding,
+                                        color: themeState.themeValue ==
+                                                utils.Theme.dark
+                                            ? Colors.white
+                                            : utils.lightModeBaseColor,
+                                      ),
+                                    )
+                                  : const SizedBox(
+                                      width: utils.nil,
+                                      height: utils.nil,
+                                    ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: utils.extraLargePadding +
+                                utils.extraLargePadding +
+                                utils.veryLargePadding,
+                            height: utils.extraLargePadding +
+                                utils.extraLargePadding +
+                                utils.veryLargePadding,
+                            child: CircularProgressIndicator(
+                              value: waterLevelState is blocs.GotWaterLevelState
+                                  ? (waterLevelState.waterLevel.level
+                                          .toDouble() /
+                                      utils.hundred.toDouble())
+                                  : waterLevelState
+                                          is blocs.FailedToGetWaterLevelState
+                                      ? utils.hundred.toDouble()
+                                      : null,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                themeState.themeValue == utils.Theme.dark
+                                    ? Colors.white
+                                    : utils.lightModeBaseColor,
+                              ),
                             ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: utils.largePadding,
+                      ),
+                      IconButton(
+                        splashRadius: utils.veryLargePadding,
+                        icon: Icon(
+                          Icons.refresh,
+                          size: utils.largePadding + utils.padding,
+                          color: themeState.themeValue == utils.Theme.dark
+                              ? Colors.white
+                              : utils.lightModeBaseColor,
+                        ),
+                        onPressed: () {
+                          BlocProvider.of<blocs.WaterLevelBloc>(context).add(
+                            const blocs.GetWaterLevelEvent(),
+                          );
+                        },
+                      )
                     ],
                   ),
                 ),

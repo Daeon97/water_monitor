@@ -8,7 +8,6 @@ class WaterLevelRepository {
   WaterLevelRepository()
       : _dio = Dio(
           BaseOptions(
-            // connectTimeout: utils.padding.toInt(),
             baseUrl: utils.baseUrl,
           ),
         );

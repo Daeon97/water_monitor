@@ -26,9 +26,13 @@ const darkModeBaseColor = Color(0xFF121212);
 const emptyString = '';
 const threeDots = '...';
 const percentage = '%';
+const exclamation = '!';
 
 const settings = 'Settings';
 const darkModeTitle = 'Dark Mode';
 const darkModeSubtitle =
     'Turns on/off dark mode. Turn on this setting if you want dark mode throughout the app';
-const anErrorOccurred = 'An error occurred';
+const anErrorOccurred =
+    'An error occurred. This may be due to your internet connection. Please try again later';
+const liquidLevel = 'Liquid Level';
+const liquidLevelMonitoringSystem = 'Liquid Level Monitoring System';
