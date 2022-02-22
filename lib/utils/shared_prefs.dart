@@ -12,10 +12,16 @@ void setTheme(enums.Theme theme) async {
   sp.setString(_themeKey, theme.name);
 }
 
-Future<models.Theme> getTheme() async {
+Future<Set> getTheme() async {
   SharedPreferences sp = await _sharedPreferences;
   return sp.getString(_themeKey) == null ||
           sp.getString(_themeKey) == enums.Theme.light.name
-      ? models.Theme.fromMode(theme: enums.Theme.light)
-      : models.Theme.fromMode(theme: enums.Theme.dark);
+      ? {
+          models.Theme.fromMode(theme: enums.Theme.light),
+          enums.Theme.light,
+        }
+      : {
+          models.Theme.fromMode(theme: enums.Theme.dark),
+          enums.Theme.dark,
+        };
 }

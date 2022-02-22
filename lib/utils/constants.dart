@@ -16,8 +16,12 @@ const nil = 0.0;
 
 const hundred = 100;
 
-const baseColor = Colors.blue;
+const lightModeBaseColor = Colors.blue;
+const darkModeBaseColor = Color(0xFF121212);
 
 const threeDots = '...';
+const percentage = '%';
 
 const settings = 'Settings';
+const darkModeTitle = 'Dark Mode';
+const darkModeSubtitle = 'Turns on/off dark mode. Turn on this setting if you want dark mode throughout the app';

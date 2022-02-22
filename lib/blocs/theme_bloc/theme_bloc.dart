@@ -13,15 +13,34 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
             theme: models.Theme.fromMode(
               theme: utils.Theme.light,
             ),
+            themeValue: utils.Theme.light,
           ),
         ) {
     on<ChangeThemeEvent>(
       (event, emit) {
+        utils.setTheme(
+          event.theme,
+        );
         emit(
           ThemeState(
             theme: models.Theme.fromMode(
               theme: event.theme,
             ),
+            themeValue: event.theme,
+          ),
+        );
+      },
+    );
+
+    on<GetThemeEvent>(
+      (event, emit) async {
+        Set themeSet = await utils.getTheme();
+        models.Theme theme = themeSet.first;
+        utils.Theme themeValue = themeSet.last;
+        emit(
+          ThemeState(
+            theme: theme,
+            themeValue: themeValue,
           ),
         );
       },

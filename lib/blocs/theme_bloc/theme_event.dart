@@ -17,3 +17,10 @@ class ChangeThemeEvent extends ThemeEvent {
         theme,
       ];
 }
+
+class GetThemeEvent extends ThemeEvent {
+  const GetThemeEvent();
+
+  @override
+  List<Object> get props => [];
+}

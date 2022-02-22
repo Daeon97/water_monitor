@@ -22,7 +22,7 @@ class WaterLevelBloc extends Bloc<WaterLevelEvent, WaterLevelState> {
               await waterLevelRepository.getWaterLevel();
           await Future.delayed(
             const Duration(
-              seconds: 3,
+              seconds: 10,
             ),
           );
           emit(
