@@ -3,7 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // endpoints
 const baseUrl = 'https://api.thingspeak.com';
-final path = '/channels/${dotenv.env['CHANNEL_ID']}/fields/1.json?api_key=${dotenv.env['API_KEY']!}&results=1';
+final path =
+    '/channels/${dotenv.env['CHANNEL_ID']}/fields/1.json?api_key=${dotenv.env['API_KEY']!}&results=1';
 
 // routes
 const homeScreenRoute = '/homeScreen';
@@ -30,3 +31,4 @@ const settings = 'Settings';
 const darkModeTitle = 'Dark Mode';
 const darkModeSubtitle =
     'Turns on/off dark mode. Turn on this setting if you want dark mode throughout the app';
+const anErrorOccurred = 'An error occurred';

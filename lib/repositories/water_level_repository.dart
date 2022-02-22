@@ -8,7 +8,7 @@ class WaterLevelRepository {
   WaterLevelRepository()
       : _dio = Dio(
           BaseOptions(
-            // connectTimeout: 10,
+            // connectTimeout: utils.padding.toInt(),
             baseUrl: utils.baseUrl,
           ),
         );
@@ -17,7 +17,6 @@ class WaterLevelRepository {
     Response<Map<String, dynamic>> response = await _dio.get(
       utils.path,
     );
-    String level = response.data!['feeds'][0]['field1'];
-    return models.WaterLevel(level: 20);
+    return models.WaterLevel.fromJson(json: response.data!);
   }
 }

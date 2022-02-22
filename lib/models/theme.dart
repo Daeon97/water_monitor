@@ -30,6 +30,18 @@ class Theme {
           progressIndicatorTheme: const ProgressIndicatorThemeData(
             circularTrackColor: Colors.transparent,
           ),
+          bottomSheetTheme: const BottomSheetThemeData(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  utils.padding + utils.smallPadding,
+                ),
+                topRight: Radius.circular(
+                  utils.padding + utils.smallPadding,
+                ),
+              ),
+            ),
+          ),
         ),
       );
     } else {
@@ -61,6 +73,18 @@ class Theme {
             ),
             trackColor: MaterialStateProperty.all<Color>(
               Colors.white38,
+            ),
+          ),
+          bottomSheetTheme: const BottomSheetThemeData(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  utils.padding + utils.smallPadding,
+                ),
+                topRight: Radius.circular(
+                  utils.padding + utils.smallPadding,
+                ),
+              ),
             ),
           ),
         ),
