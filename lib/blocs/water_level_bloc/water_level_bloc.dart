@@ -20,11 +20,6 @@ class WaterLevelBloc extends Bloc<WaterLevelEvent, WaterLevelState> {
         try {
           models.WaterLevel waterLevel =
               await waterLevelRepository.getWaterLevel();
-          await Future.delayed(
-            const Duration(
-              seconds: 10,
-            ),
-          );
           emit(
             GotWaterLevelState(
               waterLevel: waterLevel,
