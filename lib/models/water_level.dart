@@ -1,10 +1,15 @@
-class WaterLevel {
-  final int level;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const WaterLevel({required this.level});
+part 'water_level.freezed.dart';
 
-  factory WaterLevel.fromJson({required Map<String, dynamic> json}) =>
-      WaterLevel(
-        level: int.parse(json['feeds'][0]['field1']),
-      );
+part 'water_level.g.dart';
+
+@freezed
+class WaterLevel with _$WaterLevel {
+  const factory WaterLevel({
+    required double value,
+  }) = _WaterLevel;
+
+  factory WaterLevel.fromJson(Map<String, Object?> json) =>
+      _$WaterLevelFromJson(json);
 }

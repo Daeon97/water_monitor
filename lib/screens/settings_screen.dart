@@ -77,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onChanged: (value) {
                     themeContext.read<blocs.ThemeBloc>().add(
                           blocs.ChangeThemeEvent(
-                            theme: value ? utils.Theme.dark : utils.Theme.light,
+                            value ? utils.Theme.dark : utils.Theme.light,
                           ),
                         );
                   },

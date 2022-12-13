@@ -1,1 +1,9 @@
-enum Theme { light, dark }
+enum Theme {
+  light,
+  dark,
+}
+
+enum Status {
+  on,
+  off,
+}

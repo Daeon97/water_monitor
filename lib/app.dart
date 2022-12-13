@@ -9,27 +9,34 @@ class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: _providers,
-      child: BlocBuilder<blocs.ThemeBloc, blocs.ThemeState>(
-        builder: (themeContext, themeState) {
-          return MaterialApp(
-            onGenerateRoute: _routes,
-            theme: themeState.theme.themeData,
-          );
-        },
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      RepositoryProvider<repositories.DatabaseOpsRepository>(
+        create: (context) => repositories.DatabaseOpsRepository(),
+        child: MultiBlocProvider(
+          providers: _providers,
+          child: BlocBuilder<blocs.ThemeBloc, blocs.ThemeState>(
+            builder: (themeContext, themeState) => MaterialApp(
+              onGenerateRoute: _routes,
+              theme: themeState.theme.themeData,
+            ),
+          ),
+        ),
+      );
 
   List<BlocProvider> get _providers => [
+        BlocProvider<blocs.StatusBloc>(
+          create: (context) => blocs.StatusBloc(
+            databaseOpsRepository:
+                context.read<repositories.DatabaseOpsRepository>(),
+          ),
+        ),
         BlocProvider<blocs.ThemeBloc>(
-          create: (context) => blocs.ThemeBloc(),
+          create: (_) => blocs.ThemeBloc(),
         ),
         BlocProvider<blocs.WaterLevelBloc>(
           create: (context) => blocs.WaterLevelBloc(
-            waterLevelRepository: repositories.WaterLevelRepository(),
+            databaseOpsRepository:
+                context.read<repositories.DatabaseOpsRepository>(),
           ),
         ),
       ];
