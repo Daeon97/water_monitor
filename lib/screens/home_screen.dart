@@ -538,10 +538,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               is blocs.GotWaterLevelState
                           ? BlocBuilder<blocs.StatusBloc, blocs.StatusState>(
                               builder: (_, statusState) => Text(
-                                (waterLevelState.waterLevel.value)
-                                        .toStringAsFixed(
-                                      utils.nil.toInt(),
-                                    ) +
+                                waterLevelState.waterLevel.value.toString() +
                                     utils.percentage,
                                 style: TextStyle(
                                   fontSize: utils.largePadding + utils.padding,

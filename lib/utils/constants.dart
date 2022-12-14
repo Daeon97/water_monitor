@@ -37,6 +37,8 @@ const threeHundredFiftyDotNil = 350.0;
 
 const measurementBarHeight = 160.0;
 
+const totalTankHeight = 50.0;
+
 const zero = 0;
 const one = 1;
 const threeThousand = 3000;

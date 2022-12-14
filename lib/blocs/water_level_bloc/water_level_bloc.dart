@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_database/firebase_database.dart';
 import '../../models/models.dart' as models;
 import '../../repositories/repositories.dart' as repositories;
+import '../../utils/utils.dart' as utils;
 
 part 'water_level_event.dart';
 
@@ -27,10 +28,23 @@ class WaterLevelBloc extends Bloc<WaterLevelEvent, WaterLevelState> {
         }
         _waterLevelStreamSubscription = databaseOpsRepository.waterLevel.listen(
           (databaseEvent) {
+            final valueFromDatabase = databaseEvent.snapshot.value as double;
+            final emptyValue = valueFromDatabase > utils.totalTankHeight
+                ? utils.totalTankHeight
+                : valueFromDatabase < utils.nil
+                    ? utils.nil
+                    : valueFromDatabase;
+            final waterLevelValue = double.parse(
+              (((utils.totalTankHeight - emptyValue) / utils.totalTankHeight) *
+                      utils.hundredDotNil)
+                  .toStringAsFixed(
+                utils.tinyPadding.toInt(),
+              ),
+            );
             add(
               GotWaterLevelEvent(
                 models.WaterLevel(
-                  value: databaseEvent.snapshot.value as double,
+                  value: waterLevelValue,
                 ),
               ),
             );
